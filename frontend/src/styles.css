@@ -1,19 +1,20 @@
-/* Design tokens. Palette is deliberately monochrome blue, hierarchy comes from
-   weight and structure rather than a second hue. */
+/* Design tokens. Near-neutral warm palette; blue is the single, sparingly-used accent. */
 :root {
-  --paper: #f5f7fa;
+  --paper: #f6f5f2;
   --surface: #ffffff;
-  --ink: #0c1b2e;
-  --ink-soft: #4a5c72;
-  --ink-faint: #8093a8;
+  --ink: #1c1c1a;
+  --ink-soft: #5b5a54;
+  --ink-faint: #8f8d85;
 
-  --blue-deep: #0f3a63;
-  --blue: #1b6ec2;
-  --blue-mist: #e3edf7;
-  --blue-line: #cbdcec;
+  --accent-deep: #1f3d73;
+  --accent: #2f5fb3;
+  --accent-mist: #eaf0fa;
+  --line: #e5e3dd;
 
-  --danger: #a8324a;
-  --ok: #2e8b6b;
+  --danger: #b0392c;
+  --danger-bg: #faf0ee;
+  --danger-line: #f0d6d0;
+  --ok: #3f8a5e;
 
   --radius: 10px;
   --rail: 3px;
@@ -21,8 +22,9 @@
   --font-fa: "Vazirmatn", system-ui, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", "Menlo", monospace;
 
-  --shadow-card: 0 1px 2px rgba(12, 27, 46, 0.05);
-  --shadow-lift: 0 4px 16px rgba(12, 27, 46, 0.09);
+  --shadow-card: 0 1px 2px rgba(28, 28, 26, 0.05);
+  --shadow-lift: 0 4px 16px rgba(28, 28, 26, 0.08);
+  --shadow-pop: 0 8px 24px rgba(28, 28, 26, 0.12);
 }
 
 * {
@@ -44,53 +46,117 @@ button {
   cursor: pointer;
 }
 
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 :focus-visible {
-  outline: 2px solid var(--blue);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* ---------- shell ---------- */
+/* ---------- page & shell ---------- */
+
+/* the page is the full-viewport background, the app card sits inside it with
+   its own borders, and the footer lives below the card, outside it */
+.page {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  background: var(--paper);
+  padding: 28px 20px 22px;
+}
 
 .app {
   display: flex;
   flex-direction: column;
-  height: 100dvh;
+  flex: 1;
+  min-height: 0;
   max-width: 860px;
-  margin: 0 auto;
+  width: 100%;
   background: var(--surface);
-  border-inline: 1px solid var(--blue-line);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
 }
 
+/* ---------- header ---------- */
+
 .header {
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.header__desktop {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 20px 22px;
+  text-align: center;
+}
+
+.header__mobile {
+  display: none;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 14px 22px;
-  border-bottom: 1px solid var(--blue-line);
-  background: var(--surface);
+  padding: 14px 15px;
 }
 
 .brand {
-  display: flex;
-  align-items: baseline;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
   gap: 10px;
+  cursor: default;
 }
 
 .brand__name {
-  font-size: 21px;
-  font-weight: 900;
+  font-size: 19px;
+  font-weight: 800;
   letter-spacing: -0.01em;
-  color: var(--blue-deep);
+  color: var(--ink);
   direction: ltr;
   unicode-bidi: isolate;
 }
 
 .brand__tagline {
-  font-size: 12.5px;
+  font-size: 12px;
   font-weight: 300;
   color: var(--ink-faint);
+}
+
+/* health tooltip on desktop, revealed by hovering/focusing the brand mark */
+.health-tip {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: var(--shadow-pop);
+  padding: 8px 14px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.12s ease-out;
+  pointer-events: none;
+}
+
+.brand:hover .health-tip,
+.brand:focus-within .health-tip {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* ---------- health dot ---------- */
@@ -137,6 +203,10 @@ button {
 .empty {
   margin: auto 0;
   padding-bottom: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .empty__lead {
@@ -165,13 +235,14 @@ button {
 .empty__chips {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
 }
 
 .chip {
   background: var(--surface);
-  border: 1px solid var(--blue-line);
-  color: var(--blue-deep);
+  border: 1px solid var(--line);
+  color: var(--accent-deep);
   border-radius: 999px;
   padding: 7px 15px;
   font-size: 13.5px;
@@ -180,8 +251,77 @@ button {
 }
 
 .chip:hover {
-  background: var(--blue-mist);
-  border-color: var(--blue);
+  background: var(--accent-mist);
+  border-color: var(--accent);
+}
+
+.empty__mark {
+  margin-bottom: 14px;
+  opacity: 0.92;
+}
+
+/* ---------- how it works ---------- */
+
+.empty__steps {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 560px;
+  margin: 28px 0 32px;
+  padding: 18px 20px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.empty__step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  text-align: start;
+  max-width: 160px;
+}
+
+.empty__step-index {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: var(--accent-mist);
+  color: var(--accent-deep);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.empty__step-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.empty__step-body {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+/* ---------- grouped suggestions ---------- */
+
+.empty__groups {
+  display: flex;
+  gap: 70px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.empty__group {
+  width: 260px;
+  max-width: 100%;
 }
 
 /* ---------- messages ---------- */
@@ -189,7 +329,7 @@ button {
 .msg--user {
   align-self: flex-start;
   max-width: 78%;
-  background: var(--blue-deep);
+  background: var(--accent-deep);
   color: #fff;
   padding: 11px 17px;
   border-radius: var(--radius);
@@ -201,7 +341,7 @@ button {
 }
 
 .msg--assistant {
-  border-inline-start: var(--rail) solid var(--blue-line);
+  border-inline-start: var(--rail) solid var(--line);
   padding-inline-start: 18px;
 }
 
@@ -251,7 +391,7 @@ button {
 
 .answer strong {
   font-weight: 700;
-  color: var(--blue-deep);
+  color: var(--accent-deep);
 }
 
 .answer em {
@@ -260,8 +400,8 @@ button {
 }
 
 .answer code {
-  background: var(--blue-mist);
-  color: var(--blue-deep);
+  background: var(--accent-mist);
+  color: var(--accent-deep);
   padding: 1px 6px;
   border-radius: 4px;
   font-family: var(--font-mono);
@@ -271,7 +411,7 @@ button {
 }
 
 .answer pre {
-  background: var(--blue-mist);
+  background: var(--accent-mist);
   padding: 13px 14px;
   border-radius: var(--radius);
   overflow-x: auto;
@@ -284,21 +424,21 @@ button {
 }
 
 .answer blockquote {
-  border-inline-start: var(--rail) solid var(--blue-line);
+  border-inline-start: var(--rail) solid var(--line);
   padding-inline-start: 14px;
   margin: 0 0 14px;
   color: var(--ink-soft);
 }
 
 .answer a {
-  color: var(--blue);
+  color: var(--accent);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .answer hr {
   border: none;
-  border-top: 1px solid var(--blue-line);
+  border-top: 1px solid var(--line);
   margin: 16px 0;
 }
 
@@ -306,7 +446,7 @@ button {
 .answer h2,
 .answer h3 {
   font-weight: 700;
-  color: var(--blue-deep);
+  color: var(--accent-deep);
   line-height: 1.5;
   margin: 0 0 10px;
 }
@@ -320,18 +460,19 @@ button {
   width: 100%;
   margin: 0 0 14px;
   font-size: 14px;
+  unicode-bidi: embed;
 }
 
 .answer th,
 .answer td {
-  border: 1px solid var(--blue-line);
+  border: 1px solid var(--line);
   padding: 6px 10px;
   text-align: start;
 }
 
 .answer th {
-  background: var(--blue-mist);
-  color: var(--blue-deep);
+  background: var(--accent-mist);
+  color: var(--accent-deep);
   font-weight: 700;
 }
 
@@ -354,7 +495,7 @@ button {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--blue);
+  background: var(--accent);
   animation: pulse 1.2s ease-in-out infinite;
 }
 
@@ -371,7 +512,7 @@ button {
   30% { opacity: 1; }
 }
 
-/* ---------- sources, the signature element ---------- */
+/* ---------- sources ---------- */
 
 .sources {
   margin-top: 18px;
@@ -393,14 +534,14 @@ button {
 
 .source {
   background: var(--surface);
-  border: 1px solid var(--blue-line);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   overflow: hidden;
   transition: box-shadow 0.15s, border-color 0.15s;
 }
 
 .source:hover {
-  border-color: var(--blue);
+  border-color: var(--accent);
   box-shadow: var(--shadow-lift);
 }
 
@@ -421,8 +562,8 @@ button {
   width: 25px;
   height: 25px;
   border-radius: 6px;
-  background: var(--blue-mist);
-  color: var(--blue-deep);
+  background: var(--accent-mist);
+  color: var(--accent-deep);
   display: grid;
   place-items: center;
   font-size: 13px;
@@ -434,17 +575,12 @@ button {
   min-width: 0;
 }
 
-/* The article number is the authority a student actually cites, so it gets the
-   heaviest weight in the whole card. */
-.source__article {
+/* the title is what a student actually recognizes the regulation by, so it now
+   carries the heaviest weight; article/page are demoted to matching meta */
+.source__title {
   font-size: 14.5px;
   font-weight: 700;
-  color: var(--blue-deep);
-}
-
-.source__article--none {
-  font-weight: 500;
-  color: var(--ink-soft);
+  color: var(--ink);
 }
 
 .source__meta {
@@ -455,6 +591,17 @@ button {
   font-weight: 300;
   color: var(--ink-soft);
   margin-top: 1px;
+  flex-wrap: wrap;
+}
+
+.source__article {
+  font-weight: 600;
+  color: var(--accent-deep);
+}
+
+.source__article--none {
+  font-weight: 300;
+  color: var(--ink-faint);
 }
 
 .source__file {
@@ -469,8 +616,8 @@ button {
 }
 
 .source__tag {
-  background: var(--blue-mist);
-  color: var(--blue-deep);
+  background: var(--accent-mist);
+  color: var(--accent-deep);
   border-radius: 4px;
   padding: 1px 6px;
   font-size: 10.5px;
@@ -486,33 +633,32 @@ button {
 }
 
 .source__percent {
-  font-size: 11.5px;
-  font-weight: 500;
-  color: var(--ink-faint);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
   font-variant-numeric: tabular-nums;
 }
 
 .source__bar {
-  width: 38px;
-  height: 3px;
+  width: 52px;
+  height: 4px;
   border-radius: 2px;
-  background: var(--blue-mist);
+  background: var(--accent-mist);
   overflow: hidden;
 }
 
 .source__bar span {
   display: block;
   height: 100%;
-  background: var(--blue);
+  background: var(--accent);
   border-radius: 2px;
 }
 
-/* the verbatim regulation text, the whole point of the card */
 .source__text {
-  border-top: 1px dashed var(--blue-line);
+  border-top: 1px dashed var(--line);
   padding: 13px;
   margin: 0;
-  background: var(--blue-mist);
+  background: var(--accent-mist);
   font-size: 14px;
   line-height: 2;
   color: var(--ink);
@@ -524,24 +670,24 @@ button {
 /* ---------- composer ---------- */
 
 .composer {
-  border-top: 1px solid var(--blue-line);
+  border-top: 1px solid var(--line);
   padding: 14px 22px 18px;
   background: var(--surface);
 }
 
 .composer__field {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: 9px;
   background: var(--paper);
-  border: 1px solid var(--blue-line);
+  border: 1px solid var(--line);
   border-radius: 12px;
   padding: 7px 9px 7px 7px;
   transition: border-color 0.15s;
 }
 
 .composer__field:focus-within {
-  border-color: var(--blue);
+  border-color: var(--accent);
 }
 
 .composer__input {
@@ -568,7 +714,7 @@ button {
   height: 36px;
   border-radius: 9px;
   border: none;
-  background: var(--blue-deep);
+  background: var(--accent-deep);
   color: #fff;
   display: grid;
   place-items: center;
@@ -577,7 +723,7 @@ button {
 }
 
 .composer__send:hover:not(:disabled) {
-  background: var(--blue);
+  background: var(--accent);
 }
 
 .composer__send:disabled {
@@ -600,21 +746,109 @@ button {
   margin: 0 22px 4px;
   padding: 11px 14px;
   border-radius: var(--radius);
-  background: #fdf1f3;
-  border: 1px solid #f0d3d9;
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-line);
   color: var(--danger);
   font-size: 13.5px;
   font-weight: 500;
 }
 
+/* ---------- footer ---------- */
+
+.footer {
+  max-width: 860px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  text-align: center;
+  padding: 16px 20px;
+  font-size: 12.5px;
+  font-weight: 300;
+  color: var(--ink-faint);
+}
+
+.footer__contact {
+  position: relative;
+  display: inline-block;
+}
+
+.footer__name {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  color: var(--accent-deep);
+}
+
+.footer__name:hover {
+   color: var(--accent);
+ }
+
+.footer__tip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: var(--shadow-pop);
+  padding: 6px;
+  min-width: 130px;
+  text-align: start;
+}
+
+.footer__tip a {
+  display: block;
+  padding: 7px 10px;
+  border-radius: 6px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.footer__tip a:hover,
+.footer__tip a:focus-visible {
+  background: var(--paper);
+  color: var(--accent-deep);
+  text-decoration: none;
+}
+
 /* ---------- responsive ---------- */
 
 @media (max-width: 640px) {
-  .app {
-    border-inline: none;
+  .page {
+    padding: 0;
+    gap: 0;
   }
 
-  .header,
+  .app {
+    border: none;
+    border-radius: 0;
+  }
+
+  .footer {
+    border-top: 1px solid var(--line);
+  }
+
+  .header__desktop {
+    display: none;
+  }
+
+  .header__mobile {
+    display: flex;
+  }
+
   .transcript,
   .composer {
     padding-inline: 15px;
@@ -624,8 +858,14 @@ button {
     margin-inline: 15px;
   }
 
-  .brand__tagline {
-    display: none;
+  .empty__steps {
+    padding: 15px 16px;
+    gap: 16px;
+    margin: 22px 0 26px;
+  }
+
+  .empty__groups {
+    gap: 26px;
   }
 
   .msg--user {

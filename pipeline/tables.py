@@ -13,6 +13,4 @@ def extract_tables(page):
     Only falls back to text-position detection (catches borderless tables,
     but is more prone to false positives) if the first pass found nothing."""
     found = page.find_tables()
-    if not found.tables:
-        found = page.find_tables(strategy="text")
     return [tab.to_markdown() for tab in found.tables]
