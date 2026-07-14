@@ -13,8 +13,9 @@ PDF_DIR = ROOT_DIR / "data" / "pdfs"
 CHROMA_DIR = ROOT_DIR / "data" / "chroma"
 COLLECTION_NAME = "ukask_regulations"
 
-# --- huggingface ---
+# --- API Providers ---
 HF_TOKEN = os.environ.get("HF_TOKEN")
+GAPGPT_API_KEY = os.environ.get("GAPGPT_API_KEY")
 
 # --- chunking ---
 MIN_CHUNK_TOKENS = 300
