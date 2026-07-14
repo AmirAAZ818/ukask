@@ -3,12 +3,14 @@ import { toPersianDigits, toPercent } from "../format";
 
 // One retrieved chunk. Collapsed it shows where the answer came from, expanded
 // it shows the regulation text verbatim so the student can check it themselves.
+// The document title leads (it's what a student recognizes the regulation by);
+// article number and page ride together underneath as matching small meta.
 export default function SourceCard({ source, index }) {
   const [open, setOpen] = useState(false);
 
   const article = source.article_numbers
-    ? `ماده ${toPersianDigits(source.article_numbers)}`
-    : "بدون شماره ماده";
+    ? `مادهٔ ${toPersianDigits(source.article_numbers)}`
+    : "بدون شمارهٔ ماده";
 
   return (
     <div className="source">
@@ -20,18 +22,18 @@ export default function SourceCard({ source, index }) {
         <span className="source__index">{toPersianDigits(index)}</span>
 
         <span className="source__body">
-          <span
-            className={
-              source.article_numbers
-                ? "source__article"
-                : "source__article source__article--none"
-            }
-          >
-            {article}
-          </span>
+          {source.title && <span className="source__title">{source.title}</span>}
 
           <span className="source__meta">
-            {source.title && <span>{source.title}</span>}
+            <span
+              className={
+                source.article_numbers
+                  ? "source__article"
+                  : "source__article source__article--none"
+              }
+            >
+              {article}
+            </span>
             {source.page != null && <span>صفحهٔ {toPersianDigits(source.page)}</span>}
             {source.chunk_type === "table" && <span className="source__tag">جدول</span>}
             {source.source_file && (

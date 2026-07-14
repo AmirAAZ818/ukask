@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { askQuestion, fetchHealth } from "./api";
 import Composer from "./components/Composer";
 import EmptyState from "./components/EmptyState";
+import Footer from "./components/Footer";
 import Health from "./components/Health";
+import Logo from "./components/Logo";
 import Message from "./components/Message";
 import Thinking from "./components/Thinking";
 
@@ -50,40 +52,59 @@ export default function App() {
   }
 
   return (
-    <div className="app">
-      <header className="header">
-        <div className="brand">
-          <span className="brand__name">UkAsk</span>
-          <span className="brand__tagline">
-            دستیار آیین‌نامه‌های دانشگاه شهید باهنر کرمان
-          </span>
-        </div>
-        <Health status={health} />
-      </header>
+    <div className="page">
+      <div className="app">
+        <header className="header">
+          {/* desktop: centered lockup, health status revealed as a tooltip on hover/focus */}
+          <div className="header__desktop">
+            <div className="brand" tabIndex={0}>
+              <Logo />
+              <span className="brand__name">UkAsk</span>
+              <div className="health-tip">
+                <Health status={health} />
+              </div>
+            </div>
+            <span className="brand__tagline">
+              دستیار آیین‌نامه‌های دانشگاه شهید باهنر کرمان
+            </span>
+          </div>
 
-      {health === "down" && (
-        <div className="banner">
-          سرور پاسخ نمی‌دهد. بررسی کنید که بک‌اند روی پورت ۸۰۰۰ در حال اجرا باشد.
-        </div>
-      )}
+          {/* mobile: original split layout, no tagline, health status inline */}
+          <div className="header__mobile">
+            <div className="brand">
+              <Logo size={26} />
+              <span className="brand__name">UkAsk</span>
+            </div>
+            <Health status={health} />
+          </div>
+        </header>
 
-      <main className="transcript">
-        {messages.length === 0 && !pending && <EmptyState onPick={send} />}
+        {health === "down" && (
+          <div className="banner">
+            سرور پاسخ نمی‌دهد. بررسی کنید که بک‌اند روی پورت ۸۰۰۰ در حال اجرا باشد.
+          </div>
+        )}
 
-        {messages.map((message, i) => (
-          <Message key={i} message={message} />
-        ))}
+        <main className="transcript">
+          {messages.length === 0 && !pending && <EmptyState onPick={send} />}
 
-        {pending && <Thinking />}
-        <div ref={bottomRef} />
-      </main>
+          {messages.map((message, i) => (
+            <Message key={i} message={message} />
+          ))}
 
-      <Composer
-        value={draft}
-        onChange={setDraft}
-        onSend={() => send(draft)}
-        disabled={pending}
-      />
+          {pending && <Thinking />}
+          <div ref={bottomRef} />
+        </main>
+
+        <Composer
+          value={draft}
+          onChange={setDraft}
+          onSend={() => send(draft)}
+          disabled={pending}
+        />
+      </div>
+
+      <Footer />
     </div>
   );
 }
