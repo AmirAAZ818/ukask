@@ -3,5 +3,6 @@ __pycache__/
 .env
 data/chroma/
 .ipynb_checkpoints/
+node_modules
 
 .vscode
