@@ -3,6 +3,8 @@ __pycache__/
 .env
 data/chroma/
 .ipynb_checkpoints/
-node_modules
+
+node_modules/
+dist/
 
 .vscode
