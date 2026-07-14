@@ -83,6 +83,8 @@ button {
   font-weight: 900;
   letter-spacing: -0.01em;
   color: var(--blue-deep);
+  direction: ltr;
+  unicode-bidi: isolate;
 }
 
 .brand__tagline {
@@ -210,13 +212,127 @@ button {
 .answer {
   font-size: 15.5px;
   line-height: 2;
-  white-space: pre-wrap;
-  margin: 0;
 }
 
 .answer--error {
+  white-space: pre-wrap;
   color: var(--danger);
   font-weight: 500;
+  margin: 0;
+}
+
+/* ---------- markdown inside the answer ---------- */
+
+.answer > *:first-child {
+  margin-top: 0;
+}
+
+.answer > *:last-child {
+  margin-bottom: 0;
+}
+
+.answer p {
+  margin: 0 0 14px;
+}
+
+.answer ul,
+.answer ol {
+  margin: 0 0 14px;
+  padding-inline-start: 24px;
+}
+
+.answer li {
+  margin-bottom: 5px;
+}
+
+.answer li > p {
+  margin: 0;
+}
+
+.answer strong {
+  font-weight: 700;
+  color: var(--blue-deep);
+}
+
+.answer em {
+  font-style: normal;
+  color: var(--ink-soft);
+}
+
+.answer code {
+  background: var(--blue-mist);
+  color: var(--blue-deep);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+.answer pre {
+  background: var(--blue-mist);
+  padding: 13px 14px;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  margin: 0 0 14px;
+}
+
+.answer pre code {
+  background: none;
+  padding: 0;
+}
+
+.answer blockquote {
+  border-inline-start: var(--rail) solid var(--blue-line);
+  padding-inline-start: 14px;
+  margin: 0 0 14px;
+  color: var(--ink-soft);
+}
+
+.answer a {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.answer hr {
+  border: none;
+  border-top: 1px solid var(--blue-line);
+  margin: 16px 0;
+}
+
+.answer h1,
+.answer h2,
+.answer h3 {
+  font-weight: 700;
+  color: var(--blue-deep);
+  line-height: 1.5;
+  margin: 0 0 10px;
+}
+
+.answer h1 { font-size: 19px; }
+.answer h2 { font-size: 17px; }
+.answer h3 { font-size: 15.5px; }
+
+.answer table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 14px;
+  font-size: 14px;
+}
+
+.answer th,
+.answer td {
+  border: 1px solid var(--blue-line);
+  padding: 6px 10px;
+  text-align: start;
+}
+
+.answer th {
+  background: var(--blue-mist);
+  color: var(--blue-deep);
+  font-weight: 700;
 }
 
 /* ---------- thinking ---------- */

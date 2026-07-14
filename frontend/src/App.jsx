@@ -53,7 +53,7 @@ export default function App() {
     <div className="app">
       <header className="header">
         <div className="brand">
-          <span className="brand__name">اوک‌اسک</span>
+          <span className="brand__name">UkAsk</span>
           <span className="brand__tagline">
             دستیار آیین‌نامه‌های دانشگاه شهید باهنر کرمان
           </span>

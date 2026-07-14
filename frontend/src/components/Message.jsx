@@ -1,3 +1,4 @@
+import Answer from "./Answer";
 import SourceCard from "./SourceCard";
 
 // A user turn is a bubble. An assistant turn is a short document, answer on top
@@ -9,9 +10,11 @@ export default function Message({ message }) {
 
   return (
     <div className={`msg--assistant ${message.error ? "is-error" : ""}`}>
-      <p className={`answer ${message.error ? "answer--error" : ""}`}>
-        {message.content}
-      </p>
+      {message.error ? (
+        <p className="answer answer--error">{message.content}</p>
+      ) : (
+        <Answer text={message.content} />
+      )}
 
       {message.sources?.length > 0 && (
         <div className="sources">
