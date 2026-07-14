@@ -1,0 +1,10 @@
+{
+  "name": "ukask",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c blue,cyan \"uvicorn backend.main:app --reload --port 8000\" \"npm --prefix frontend run dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
+}
