@@ -13,12 +13,13 @@ from contextlib import asynccontextmanager
 
 import httpx
 from chromadb.errors import NotFoundError
-from fastapi import FastAPI, Request
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from pipeline import config, embed, store
 
+from . import auth
 from . import rag
 from .schemas import AskRequest, AskResponse, HealthResponse
 
@@ -39,6 +40,8 @@ _readiness = {"index_ready": False, "embedding_model_ready": False}
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("starting up, checking vector index and warming the embedding model")
+    
+    auth.check_auth_config()
 
     client = store.get_client()
     try:
@@ -76,6 +79,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(auth.router)
 
 @app.exception_handler(NotFoundError)
 async def index_missing_handler(request: Request, exc: NotFoundError):
@@ -117,7 +121,7 @@ def health():
 
 
 @app.post("/api/ask", response_model=AskResponse)
-def ask(payload: AskRequest):
+def ask(payload: AskRequest, _session: None = Depends(auth.require_session)):
     # plain def, not async def, on purpose, retriever.search and
     # generator.generate_answer are blocking calls, FastAPI runs plain def
     # routes in a worker thread pool so one slow answer doesn't stall

@@ -2,13 +2,14 @@
 // server lives here, so swapping the base URL for the deployed build is a
 // one-line change.
 
+import { getToken } from "./auth";
+
 const API_BASE = import.meta.env.VITE_API_BASE ?? "http://localhost:8000";
 
 async function request(path, options) {
   const res = await fetch(`${API_BASE}${path}`, options);
 
   if (!res.ok) {
-    // the backend always sends {detail} on failure, fall back if it somehow doesn't
     let detail = "ارتباط با سرور برقرار نشد.";
     try {
       const body = await res.json();
@@ -16,17 +17,31 @@ async function request(path, options) {
     } catch {
       // response wasn't json, keep the fallback message
     }
-    throw new Error(detail);
+    const error = new Error(detail);
+    error.status = res.status;
+    throw error;
   }
 
   return res.json();
 }
 
 export function askQuestion(question, k = 5) {
+  const token = getToken();
   return request("/api/ask", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
     body: JSON.stringify({ question, k }),
+  });
+}
+
+export function login(code) {
+  return request("/api/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ code }),
   });
 }
 
