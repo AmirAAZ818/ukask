@@ -37,6 +37,12 @@ FORCE_OCR_FILES = {
     "دستورالعمل بررسی موارد غیبت پزشکی.pdf",
 }
 
+# files with the ل+ا (lam-alef) drawing-order bug in their font, see
+# pipeline/ligature_fix.py for what this actually does and why it's opt-in
+LIGATURE_FIX_FILES = {
+    "مجموعه مقررات آموزشی 1402.pdf",
+    "راهنمای شرکت در امتحانات پایان ترم.pdf"
+}
 
 # --- per-document metadata ---
 DOCUMENT_MANIFEST = {
