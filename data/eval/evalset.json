@@ -1,0 +1,802 @@
+[
+  {
+    "id": 1,
+    "question": "حداکثر مدت مجاز تحصیل در دوره کارشناسی ارشد چند نیمسال است؟",
+    "ground_truth": "۴ نیمسال تحصیلی است و با تأیید دانشگاه حداکثر یک نیمسال قابل افزایش است.",
+    "source": "ماده ۲۶",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 2,
+    "question": "حداقل نمره قبولی هر درس در کارشناسی ارشد چقدر است؟",
+    "ground_truth": "۱۲ از ۲۰",
+    "source": "ماده ۲۹",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 3,
+    "question": "چند نیمسال مشروطی در کارشناسی ارشد موجب محرومیت از تحصیل می‌شود؟",
+    "ground_truth": "دو نیمسال مشروطی اعم از متوالی یا متناوب",
+    "source": "ماده ۲۹",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 4,
+    "question": "دانشجوی کارشناسی ارشد تا قبل از شروع کدام نیمسال باید پروپوزال خود را تصویب کند؟",
+    "ground_truth": "تا قبل از شروع نیمسال سوم تحصیلی",
+    "source": "ماده ۳۲",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 5,
+    "question": "اگر دانشجوی کارشناسی ارشد تا پایان نیمسال چهارم پروپوزال خود را تصویب نکند چه می‌شود؟",
+    "ground_truth": "از ادامه تحصیل محروم می‌شود",
+    "source": "ماده ۳۲",
+    "difficulty": "hard",
+    "question_type": "factoid"
+  },
+  {
+    "id": 6,
+    "question": "حداکثر تعداد واحد جبرانی در کارشناسی ارشد چند واحد است؟",
+    "ground_truth": "۱۲ واحد",
+    "source": "ماده ۳۳",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 7,
+    "question": "آیا تغییر رشته یا انتقال دانشجوی کارشناسی ارشد مجاز است؟",
+    "ground_truth": "خیر؛ تغییر رشته و انتقال ممنوع است.",
+    "source": "ماده ۳۴",
+    "difficulty": "hard",
+    "question_type": "reasoning"
+  },
+  {
+    "id": 8,
+    "question": "حداکثر زمان اصلاح پایان‌نامه پس از جلسه دفاع چقدر است؟",
+    "ground_truth": "سه ماه",
+    "source": "تبصره ۲ ماده ۳۶",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 9,
+    "question": "در صورت مردود شدن پایان‌نامه دانشجو چند بار دیگر حق دفاع دارد؟",
+    "ground_truth": "فقط یک بار دیگر و حداکثر در یک نیمسال تحصیلی",
+    "source": "تبصره ۳ ماده ۳۶",
+    "difficulty": "hard",
+    "question_type": "factoid"
+  },
+  {
+    "id": 10,
+    "question": "تاریخ دانش‌آموختگی در کارشناسی ارشد چه زمانی است؟",
+    "ground_truth": "روز دفاع و کسب درجه قبولی از پایان‌نامه",
+    "source": "تبصره ۵ ماده ۳۷",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 11,
+    "question": "حداکثر مدت مجاز تحصیل در کارشناسی پیوسته چند نیمسال است؟",
+    "ground_truth": "۸ نیمسال تحصیلی",
+    "source": "ماده ۱۴",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 12,
+    "question": "حداقل مدت مجاز دانش‌آموختگی در کارشناسی پیوسته چند نیمسال است؟",
+    "ground_truth": "۶ نیمسال تحصیلی",
+    "source": "تبصره ۴ ماده ۱۴",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 13,
+    "question": "حداقل تعداد واحد قابل اخذ در هر نیمسال کارشناسی چقدر است؟",
+    "ground_truth": "۱۲ واحد",
+    "source": "ماده ۱۷",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 14,
+    "question": "حداکثر تعداد واحد قابل اخذ در هر نیمسال کارشناسی چقدر است؟",
+    "ground_truth": "۲۰ واحد",
+    "source": "تبصره ۱ ماده ۱۷",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 15,
+    "question": "در صورت کسب میانگین ۱۷ یا بیشتر دانشجو در نیمسال بعد چند واحد می‌تواند اخذ کند؟",
+    "ground_truth": "حداکثر ۲۴ واحد",
+    "source": "تبصره ۲ ماده ۱۷",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 16,
+    "question": "در نیمسال آخر دانشجو حداکثر چند واحد می‌تواند اخذ کند؟",
+    "ground_truth": "۲۴ واحد با رعایت شرایط مقرر",
+    "source": "تبصره ۳ ماده ۱۷",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 17,
+    "question": "حداکثر واحد قابل اخذ در بازه تابستانی چند واحد است؟",
+    "ground_truth": "۶ واحد",
+    "source": "تبصره ۱ ماده ۱۷",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 18,
+    "question": "آیا بازه تابستانی جزو نیمسال تحصیلی محسوب می‌شود؟",
+    "ground_truth": "خیر",
+    "source": "تبصره ۵ ماده ۱۷",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 19,
+    "question": "اگر دانشجو صرفاً دو درس نظری تا سقف ۴ واحد باقی‌مانده داشته باشد چه امکانی دارد؟",
+    "ground_truth": "می‌تواند آن‌ها را به صورت معرفی به استاد اخذ کند",
+    "source": "تبصره ۸ ماده ۱۷",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 20,
+    "question": "دانشجو چه زمانی می‌تواند یک درس نظری را حذف اضطراری کند؟",
+    "ground_truth": "یک هفته قبل از شروع امتحانات پایان نیمسال",
+    "source": "ماده ۱۸",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 21,
+    "question": "حداکثر مرخصی تحصیلی در کارشناسی پیوسته چند نیمسال است؟",
+    "ground_truth": "دو نیمسال",
+    "source": "ماده ۱۹",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 22,
+    "question": "حداکثر مرخصی تحصیلی در کاردانی و کارشناسی ناپیوسته چند نیمسال است؟",
+    "ground_truth": "یک نیمسال",
+    "source": "ماده ۱۹",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 23,
+    "question": "برای تغییر رشته در همان دانشگاه حداقل چند واحد باید گذرانده شده باشد؟",
+    "ground_truth": "حداقل یک ششم واحدهای دوره",
+    "source": "ماده ۲۰",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 24,
+    "question": "برای تغییر رشته در همان دانشگاه حداکثر چند واحد باید گذرانده شده باشد؟",
+    "ground_truth": "حداکثر یک سوم واحدهای دوره",
+    "source": "ماده ۲۰",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 25,
+    "question": "هر دانشجو چند بار در هر دوره می‌تواند تغییر رشته دهد؟",
+    "ground_truth": "فقط یک بار",
+    "source": "ماده ۲۰",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 26,
+    "question": "آیا انتقال از دانشگاه غیردولتی به دولتی مجاز است؟",
+    "ground_truth": "خیر",
+    "source": "ماده ۲۱",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 27,
+    "question": "آیا انتقال از شهریه‌پرداز به رایگان مجاز است؟",
+    "ground_truth": "خیر",
+    "source": "ماده ۲۱",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 28,
+    "question": "آیا انتقال از غیرحضوری به حضوری مجاز است؟",
+    "ground_truth": "خیر",
+    "source": "ماده ۲۱",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 29,
+    "question": "برای دریافت مدرک کاردانی میان‌مقطع حداقل چند واحد باید گذرانده شود؟",
+    "ground_truth": "۶۸ واحد",
+    "source": "ماده ۲۳",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 30,
+    "question": "حداقل میانگین لازم برای دریافت مدرک کاردانی میان‌مقطع چقدر است؟",
+    "ground_truth": "۱۲",
+    "source": "ماده ۲۳",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 31,
+    "question": "مالک دانش‌آموختگی در کارشناسی چیست؟",
+    "ground_truth": "گذراندن همه واحدها و داشتن میانگین کل حداقل ۱۲",
+    "source": "ماده ۲۴",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 32,
+    "question": "اگر میانگین کل کارشناسی کمتر از ۱۲ باشد چه فرصتی داده می‌شود؟",
+    "ground_truth": "یک نیمسال برای انتخاب مجدد حداکثر ۱۶ واحد از دروس با نمره ۱۰ تا ۱۲",
+    "source": "تبصره ۱ ماده ۲۴",
+    "difficulty": "hard",
+    "question_type": "reasoning"
+  },
+  {
+    "id": 33,
+    "question": "تاریخ دانش‌آموختگی در کارشناسی چه زمانی است؟",
+    "ground_truth": "زمان ثبت آخرین نمره درس در آموزش دانشگاه",
+    "source": "ماده ۲۵",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 34,
+    "question": "حداقل نمره قبولی هر درس در کارشناسی چقدر است؟",
+    "ground_truth": "۱۰ از ۲۰",
+    "source": "ماده ۱۶",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 35,
+    "question": "میانگین قابل قبول هر نیمسال کارشناسی چقدر است؟",
+    "ground_truth": "۱۲",
+    "source": "ماده ۱۶",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 36,
+    "question": "چند نیمسال مشروطی در کارشناسی پیوسته موجب محرومیت می‌شود؟",
+    "ground_truth": "سه نیمسال اعم از متوالی یا متناوب",
+    "source": "ماده ۱۶",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 37,
+    "question": "چند نیمسال مشروطی در کاردانی و کارشناسی ناپیوسته موجب محرومیت می‌شود؟",
+    "ground_truth": "دو نیمسال",
+    "source": "ماده ۱۶",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 38,
+    "question": "اگر دانشجو بیش از سه شانزدهم جلسات غیبت کند چه می‌شود؟",
+    "ground_truth": "نمره درس صفر ثبت می‌شود مگر غیبت موجه تشخیص داده شود",
+    "source": "تبصره ۱ ماده ۷",
+    "difficulty": "hard",
+    "question_type": "reasoning"
+  },
+  {
+    "id": 39,
+    "question": "مدرس تا چند روز پس از اعلام نهایی امتحان در کارشناسی باید اعتراضات را بررسی کند؟",
+    "ground_truth": "حداکثر ۱۰ روز",
+    "source": "تبصره ۲ ماده ۸",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 40,
+    "question": "مدرس تا چند روز پس از اعلام نهایی امتحان در ارشد و دکتری باید اعتراضات را بررسی کند؟",
+    "ground_truth": "حداکثر ۲۰ روز",
+    "source": "تبصره ۲ ماده ۸",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 41,
+    "question": "آیا نمرات پس از انقضای مهلت بازبینی قابل تغییر هستند؟",
+    "ground_truth": "خیر مگر طبق ضوابط اصلاح نمره",
+    "source": "تبصره ۴ ماده ۸",
+    "difficulty": "hard",
+    "question_type": "reasoning"
+  },
+  {
+    "id": 42,
+    "question": "مرخصی زایمان بدون احتساب سنوات چه مقدار است؟",
+    "ground_truth": "یک نیمسال در بارداری و حداکثر چهار نیمسال پس از زایمان برای فرزند زیر دو سال",
+    "source": "تبصره ۱ ماده ۹",
+    "difficulty": "hard",
+    "question_type": "factoid"
+  },
+  {
+    "id": 43,
+    "question": "حداکثر مرخصی پزشکی بدون احتساب سنوات چقدر است؟",
+    "ground_truth": "دو نیمسال",
+    "source": "تبصره ۱ ماده ۹",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 44,
+    "question": "دانشجو تا چه مدت می‌تواند درخواست انصراف خود را پس بگیرد؟",
+    "ground_truth": "حداکثر دو ماه",
+    "source": "ماده ۱۰",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 45,
+    "question": "عدم انتخاب واحد در یک نیمسال چه حکمی دارد؟",
+    "ground_truth": "به عنوان انصراف از تحصیل تلقی می‌شود",
+    "source": "تبصره ۲ ماده ۱۰",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 46,
+    "question": "آیا نمره مردودی پس از قبولی مجدد از ریزنمرات حذف می‌شود؟",
+    "ground_truth": "خیر؛ در ریزنمرات باقی می‌ماند و در میانگین محاسبه می‌شود",
+    "source": "ماده ۱۱",
+    "difficulty": "hard",
+    "question_type": "reasoning"
+  },
+  {
+    "id": 47,
+    "question": "دانشگاه با درخواست دانشجو حداکثر چند درس مردودی را می‌تواند از میانگین کل بی‌اثر کند؟",
+    "ground_truth": "یک درس",
+    "source": "تبصره ۱ ماده ۱۱",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 48,
+    "question": "آیا تسهیلات حذف نمره مردودی شامل موارد تقلب می‌شود؟",
+    "ground_truth": "خیر",
+    "source": "تبصره ۲ ماده ۱۱",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 49,
+    "question": "حداقل نمره لازم برای معادل‌سازی در کارشناسی چقدر است؟",
+    "ground_truth": "۱۲",
+    "source": "ماده ۱۲",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 50,
+    "question": "حداقل نمره لازم برای معادل‌سازی در کارشناسی ارشد چقدر است؟",
+    "ground_truth": "۱۴",
+    "source": "ماده ۱۲",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 51,
+    "question": "حداقل نمره لازم برای معادل‌سازی در دکتری تخصصی چقدر است؟",
+    "ground_truth": "۱۶",
+    "source": "ماده ۱۲",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 52,
+    "question": "به ازای هر ۲۰ واحد معادل‌سازی در کارشناسی چه اثری بر سنوات دارد؟",
+    "ground_truth": "یک نیمسال از سنوات کسر می‌شود",
+    "source": "بند د ماده ۱۲",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 53,
+    "question": "به ازای هر ۱۲ واحد معادل‌سازی در ارشد چه اثری بر سنوات دارد؟",
+    "ground_truth": "یک نیمسال از سنوات کسر می‌شود",
+    "source": "بند هـ ماده ۱۲",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 54,
+    "question": "حداقل و حداکثر واحد مجاز در هر نیمسال ارشد چقدر است؟",
+    "ground_truth": "حداقل ۸ و حداکثر ۱۴ واحد",
+    "source": "ماده ۳۰",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 55,
+    "question": "اگر میانگین کل ارشد کمتر از ۱۴ باشد چه اتفاقی می‌افتد؟",
+    "ground_truth": "اجازه دفاع ندارد و یک نیمسال فرصت جبران دارد",
+    "source": "تبصره ۱ ماده ۳۷",
+    "difficulty": "hard",
+    "question_type": "reasoning"
+  },
+  {
+    "id": 56,
+    "question": "اگر دانشجو با اتمام سنوات ارشد موفق به دفاع نشود چه می‌شود؟",
+    "ground_truth": "از ادامه تحصیل محروم می‌شود",
+    "source": "تبصره ۲ ماده ۳۷",
+    "difficulty": "hard",
+    "question_type": "factoid"
+  },
+  {
+    "id": 57,
+    "question": "نمره پایان‌نامه ارشد در میانگین کل محاسبه می‌شود؟",
+    "ground_truth": "خیر",
+    "source": "ماده ۳۶",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 58,
+    "question": "حداقل نمره قبولی پایان‌نامه ارشد چقدر است؟",
+    "ground_truth": "۱۴",
+    "source": "ماده ۳۶",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 59,
+    "question": "درجه عالی پایان‌نامه ارشد در چه بازه‌ای است؟",
+    "ground_truth": "۱۹ تا ۲۰",
+    "source": "ماده ۳۶",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 60,
+    "question": "آیا تغییر نمره پایان‌نامه پس از تأیید هیأت داوران مجاز است؟",
+    "ground_truth": "خیر",
+    "source": "تبصره ۱ ماده ۳۶",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 61,
+    "question": "حداقل و حداکثر مدت مجاز تحصیل در دکتری تخصصی چند نیمسال است؟",
+    "ground_truth": "حداقل ۶ و حداکثر ۸ نیمسال",
+    "source": "ماده ۳۹",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 62,
+    "question": "حداکثر افزایش سنوات در دکتری تخصصی چقدر است؟",
+    "ground_truth": "دو نیمسال با تأیید دانشگاه",
+    "source": "تبصره ۱ ماده ۳۹",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 63,
+    "question": "حداقل نمره قبولی هر درس در دکتری تخصصی چقدر است؟",
+    "ground_truth": "۱۴",
+    "source": "ماده ۴۰",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 64,
+    "question": "میانگین کل قابل قبول پس از گذراندن واحدهای آموزشی دکتری چقدر است؟",
+    "ground_truth": "۱۶",
+    "source": "ماده ۴۰",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 65,
+    "question": "برای ورود به ارزیابی جامع چه میانگینی لازم است؟",
+    "ground_truth": "حداقل ۱۶",
+    "source": "ماده ۴۱",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 66,
+    "question": "حداقل نمره قبولی در ارزیابی جامع دکتری چقدر است؟",
+    "ground_truth": "۱۶",
+    "source": "تبصره ۱ ماده ۴۱",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 67,
+    "question": "دانشجو چند بار می‌تواند در ارزیابی جامع شرکت کند؟",
+    "ground_truth": "حداکثر دو بار",
+    "source": "تبصره ۱ ماده ۴۱",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 68,
+    "question": "اگر میانگین کل دکتری کمتر از ۱۶ باشد چه فرصتی داده می‌شود؟",
+    "ground_truth": "یک نیمسال برای انتخاب مجدد حداکثر ۶ واحد از دروس با نمره ۱۴ تا ۱۶",
+    "source": "تبصره ۲ ماده ۴۱",
+    "difficulty": "hard",
+    "question_type": "reasoning"
+  },
+  {
+    "id": 69,
+    "question": "آیا تغییر رشته یا انتقال در دکتری تخصصی مجاز است؟",
+    "ground_truth": "خیر",
+    "source": "ماده ۴۲",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 70,
+    "question": "دانشجوی دکتری تا قبل از شروع کدام نیمسال باید استاد راهنما و موضوع رساله را تصویب کند؟",
+    "ground_truth": "تا قبل از شروع نیمسال سوم",
+    "source": "ماده ۴۳",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 71,
+    "question": "شرط لازم برای اجرای رساله دکتری چیست؟",
+    "ground_truth": "تصویب پروپوزال پس از گذراندن موفق ارزیابی جامع",
+    "source": "ماده ۴۴",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 72,
+    "question": "آیا میانگین ۱۸ و بالاتر می‌تواند جایگزین آزمون جامع شود؟",
+    "ground_truth": "بله به شرط عدم مردودی در دروس",
+    "source": "تبصره ۲ ماده ۴۴",
+    "difficulty": "hard",
+    "question_type": "factoid"
+  },
+  {
+    "id": 73,
+    "question": "آیا میانگین ۱۷ و یک مقاله معتبر می‌تواند جایگزین آزمون جامع شود؟",
+    "ground_truth": "بله",
+    "source": "تبصره ۲ ماده ۴۴",
+    "difficulty": "hard",
+    "question_type": "factoid"
+  },
+  {
+    "id": 74,
+    "question": "آیا میانگین ۱۷ و ثبت اختراع معتبر می‌تواند جایگزین آزمون جامع شود؟",
+    "ground_truth": "بله",
+    "source": "تبصره ۲ ماده ۴۴",
+    "difficulty": "hard",
+    "question_type": "factoid"
+  },
+  {
+    "id": 75,
+    "question": "حداقل مرتبه علمی استاد راهنمای اول دکتری چیست؟",
+    "ground_truth": "استادیاری",
+    "source": "ماده ۴۵",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 76,
+    "question": "دانشجوی دکتری می‌تواند استاد راهنمای دوم داشته باشد؟",
+    "ground_truth": "بله",
+    "source": "ماده ۴۵",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 77,
+    "question": "دانشجوی دکتری می‌تواند از فرصت تحقیقاتی استفاده کند؟",
+    "ground_truth": "بله در مدت مجاز تحصیل و طبق ضوابط وزارت",
+    "source": "ماده ۴۶",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 78,
+    "question": "برای دفاع از رساله چه شرطی لازم است؟",
+    "ground_truth": "تأیید استادان راهنما از حداقل کفایت دستاوردهای علمی",
+    "source": "ماده ۴۷",
+    "difficulty": "hard",
+    "question_type": "factoid"
+  },
+  {
+    "id": 79,
+    "question": "حداقل چند مقاله معتبر برای کفایت دستاوردهای علمی رساله لازم است؟",
+    "ground_truth": "دو مقاله علمی پژوهشی یا مروری معتبر مستخرج از رساله",
+    "source": "تبصره ۲ ماده ۴۷",
+    "difficulty": "hard",
+    "question_type": "factoid"
+  },
+  {
+    "id": 80,
+    "question": "آیا اخذ DOI معادل چاپ مقاله محسوب می‌شود؟",
+    "ground_truth": "بله",
+    "source": "تبصره ۳ ماده ۴۷",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 81,
+    "question": "حداقل نمره قبولی رساله دکتری چقدر است؟",
+    "ground_truth": "۱۶",
+    "source": "ماده ۴۸",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 82,
+    "question": "درجه عالی رساله دکتری در چه بازه‌ای است؟",
+    "ground_truth": "۱۹ تا ۲۰",
+    "source": "ماده ۴۸",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 83,
+    "question": "در صورت مردود شدن رساله دکتری دانشجو چند بار دیگر حق دفاع دارد؟",
+    "ground_truth": "فقط یک بار دیگر",
+    "source": "تبصره ۱ ماده ۴۸",
+    "difficulty": "hard",
+    "question_type": "factoid"
+  },
+  {
+    "id": 84,
+    "question": "حداکثر زمان اصلاح رساله دکتری پس از دفاع چقدر است؟",
+    "ground_truth": "سه ماه",
+    "source": "تبصره ۲ ماده ۴۸",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 85,
+    "question": "اگر دانشجو در سنوات مجاز از رساله دفاع نکند چه مدرکی دریافت می‌کند؟",
+    "ground_truth": "فقط گواهی گذراندن واحدهای درسی",
+    "source": "تبصره ۳ ماده ۴۸",
+    "difficulty": "hard",
+    "question_type": "factoid"
+  },
+  {
+    "id": 86,
+    "question": "مالک دانش‌آموختگی دکتری چیست؟",
+    "ground_truth": "گذراندن همه واحدها، میانگین کل حداقل ۱۶ و موفقیت در دفاع از رساله",
+    "source": "ماده ۴۹",
+    "difficulty": "hard",
+    "question_type": "factoid"
+  },
+  {
+    "id": 87,
+    "question": "تاریخ دانش‌آموختگی دکتری چه زمانی است؟",
+    "ground_truth": "روز دفاع با کسب درجه قبولی از رساله",
+    "source": "تبصره ۱ ماده ۴۹",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 88,
+    "question": "در صورت اثبات تخلف علمی در دکتری چه می‌شود؟",
+    "ground_truth": "دانشگاه متناسب با میزان تخلف تصمیم‌گیری می‌کند",
+    "source": "ماده ۵۰",
+    "difficulty": "hard",
+    "question_type": "reasoning"
+  },
+  {
+    "id": 89,
+    "question": "اگر تخلف علمی پس از فراغت از تحصیل کشف شود چه می‌شود؟",
+    "ground_truth": "تخلف بررسی و متناسب با آن تصمیم‌گیری می‌شود",
+    "source": "تبصره ۱ ماده ۵۰",
+    "difficulty": "hard",
+    "question_type": "reasoning"
+  },
+  {
+    "id": 90,
+    "question": "دانشگاه‌ها تا چه زمانی باید شیوه‌نامه اجرایی را تدوین کنند؟",
+    "ground_truth": "تا پیش از شروع سال تحصیلی ۱۴۰۳-۱۴۰۲",
+    "source": "ماده ۵۱",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 91,
+    "question": "اگر دانشگاه شیوه‌نامه اجرایی را تصویب نکند چه چیزی ملاک عمل است؟",
+    "ground_truth": "آخرین شیوه‌نامه اجرایی دانشگاه تهران",
+    "source": "تبصره ۵ ماده ۵۱",
+    "difficulty": "hard",
+    "question_type": "factoid"
+  },
+  {
+    "id": 92,
+    "question": "شیوه‌نامه اجرایی هر ورودی تا چه زمانی ملاک عمل است؟",
+    "ground_truth": "تا پایان دوره تحصیلی همان ورودی",
+    "source": "تبصره ۶ ماده ۵۱",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 93,
+    "question": "مسئول حسن اجرای آیین‌نامه چه نهادی است؟",
+    "ground_truth": "دانشگاه",
+    "source": "ماده ۵۲",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 94,
+    "question": "نظارت بر اجرا و تفسیر مفاد آیین‌نامه بر عهده چه کسی است؟",
+    "ground_truth": "معاون آموزشی وزارت",
+    "source": "ماده ۵۲",
+    "difficulty": "easy",
+    "question_type": "factoid"
+  },
+  {
+    "id": 95,
+    "question": "آیین‌نامه برای چه ورودی‌هایی لازم‌الاجرا است؟",
+    "ground_truth": "ورودی‌های سال تحصیلی ۱۴۰۳-۱۴۰۲ و پس از آن",
+    "source": "ماده ۵۳",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 96,
+    "question": "آیین‌نامه در چه تاریخی تصویب شده است؟",
+    "ground_truth": "۱۴۰۲/۴/۲۵",
+    "source": "ماده ۵۴",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 97,
+    "question": "نیمسال تحصیلی چند هفته آموزش و چند هفته امتحان دارد؟",
+    "ground_truth": "۱۶ هفته آموزش و ۲ هفته امتحان",
+    "source": "پیوست شماره ۱",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 98,
+    "question": "بازه تابستانی چند هفته آموزش و چند هفته امتحان دارد؟",
+    "ground_truth": "۶ هفته آموزش و ۱ هفته امتحان",
+    "source": "پیوست شماره ۱",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 99,
+    "question": "درس جبرانی برای چه دانشجویانی ارائه می‌شود؟",
+    "ground_truth": "دانشجویانی که از رشته‌های غیرمرتبط وارد دوره شده‌اند",
+    "source": "پیوست شماره ۱",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  },
+  {
+    "id": 100,
+    "question": "مشروطی در آیین‌نامه چگونه تعریف شده است؟",
+    "ground_truth": "وضعیتی که دانشجو در یک نیمسال میانگین کمتر از حد نصاب مقرر آن دوره را کسب کند",
+    "source": "پیوست شماره ۱",
+    "difficulty": "medium",
+    "question_type": "factoid"
+  }
+]
