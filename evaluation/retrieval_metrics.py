@@ -72,12 +72,14 @@ def count_total_relevant(collection, target_article):
     return count
 
 
-def evaluate_retrieval(questions, k=5):
-    """Runs retrieval for each question, returns one metrics row per question.
-    questions: list of {id, question, source, difficulty, question_type, ...}
-    from the professor's dataset (or a dev/test split of it)."""
+def evaluate_retrieval(questions, k=5, search_fn=None):
+    """search_fn: defaults to backend.retriever.search (dense-only), pass
+    backend.retriever.search_hybrid instead to evaluate hybrid retrieval
+    with the exact same metrics, for a direct comparison."""
     from backend import retriever
     from pipeline import config, store
+
+    search_fn = search_fn or retriever.search
 
     client = store.get_client()
     collection = client.get_collection(config.COLLECTION_NAME)
@@ -85,7 +87,7 @@ def evaluate_retrieval(questions, k=5):
     rows = []
     for item in questions:
         target = parse_article_number(item["source"])
-        retrieved = retriever.search(item["question"], k=k) if target else []
+        retrieved = search_fn(item["question"], k=k) if target else []
         total_relevant = count_total_relevant(collection, target) if target else 0
 
         rows.append({

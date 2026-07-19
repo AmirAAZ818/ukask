@@ -52,10 +52,13 @@ def process_pdf(pdf_path):
     table_chunks = _table_chunks(raw_pages, doc_meta)
     if table_chunks:
         table_pages = sorted({c["page"] for c in table_chunks})
-        print(f"    {len(table_chunks)} table(s) found on page(s) {table_pages}")
+        status = "" if config.INCLUDE_TABLE_CHUNKS else " (excluded, INCLUDE_TABLE_CHUNKS is off)"
+        print(f"    {len(table_chunks)} table(s) found on page(s) {table_pages}{status}")
 
     text_chunks = chunk.chunk_document(pages, doc_meta)
-    return text_chunks + table_chunks
+    if config.INCLUDE_TABLE_CHUNKS:
+        return text_chunks + table_chunks
+    return text_chunks
 
 
 def main():
