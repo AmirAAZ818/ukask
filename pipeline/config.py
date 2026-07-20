@@ -22,6 +22,8 @@ MIN_CHUNK_TOKENS = 300
 MAX_CHUNK_TOKENS = 500
 CHUNK_OVERLAP_TOKENS = 50  # avoids losing context at chunk edges
 
+INCLUDE_TABLE_CHUNKS = False
+
 # --- embedding ---
 EMBEDDING_MODEL = "BAAI/bge-m3"
 
