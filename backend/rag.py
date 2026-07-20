@@ -6,8 +6,9 @@ from . import generator, retriever
 
 RELEVANCE_THRESHOLD = 0.52
 
-def answer_question(query, k=5):
-    chunks = retriever.search(query, k=k)
+def answer_question(query, k=5, search_fn=None):
+    search_fn = search_fn or retriever.search
+    chunks = search_fn(query, k=k)
     top_similarity = (1 - chunks[0]["distance"]) if chunks else 0
 
     if top_similarity < RELEVANCE_THRESHOLD:
