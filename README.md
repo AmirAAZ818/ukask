@@ -1,6 +1,6 @@
 # UkAsk
 
-A Persian-language RAG (Retrieval-Augmented Generation) system that answers student questions about Shahid Bahonar University of Kerman's academic regulations, grounded strictly in the university's own PDF documents.
+A Persian-language RAG (Retrieval-Augmented Generation) system that answers student questions about University of Kerman's academic regulations, grounded strictly in the university's own PDF documents.
 
 **Live demo:** [ukask.example.com](https://ukask.example.com) *(placeholder — update once deployed)*
 
@@ -112,5 +112,5 @@ See `notebooks/03_retrieval tuning.ipynb` and `notebooks/04_answer_correctness.i
 
 ## Notes
 
-- `data/chroma/` (the built vector index) is gitignored — everyone builds it locally from `data/pdfs/`.
-- The access-code auth is intentionally lightweight (single shared code, in-memory rate limiting) — sufficient for a small-scale course project, not meant for production-scale multi-tenant auth.
+- `data/chroma/` (the built vector index) is gitignored, everyone builds it locally from `data/pdfs/`.
+- The access-code auth is intentionally lightweight (single shared code, in-memory rate limiting)
