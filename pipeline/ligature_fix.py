@@ -1,13 +1,13 @@
-"""Fixes a specific font bug in some documents (B Zar and relatives), where
-the ل+ا (lam-alef) sequence gets drawn in reversed order during extraction,
-turning صحیح "لا" into "ال". Opt-in per file via config.LIGATURE_FIX_FILES,
-since a corrupted "لا" and a genuinely correct "ال" (as in سال, مال, حال)
-are textually identical once extracted, there's no way to tell them apart
-without outside information, here that's word frequency.
+"""Fixes a font bug in some documents (B Zar and relatives) where the ل+ا
+(lam-alef) sequence gets drawn in reversed order during extraction, turning
+صحیح "لا" into "ال". Opt-in per file via config.LIGATURE_FIX_FILES, since a
+corrupted "لا" and a genuinely correct "ال" (as in سال, مال, حال) are
+identical once extracted, there's no telling them apart without outside
+information, here that's word frequency.
 
-Deliberately conservative. Only swaps when the swapped reading is common
-AND meaningfully more common than the as-extracted reading. Leaves ambiguous
-or unknown words untouched rather than guessing.
+Conservative by design: only swaps when the swapped reading is both common
+and clearly more common than the as-extracted one. Ambiguous words are left
+untouched rather than guessed at.
 """
 
 import re

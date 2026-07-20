@@ -1,6 +1,5 @@
 """Ties retriever.py and generator.py together into the full query-time
-pipeline: question -> embedding -> search -> retrieved chunks -> LLM -> answer.
-This is what the FastAPI endpoint will call once the backend exists."""
+pipeline: question -> embedding -> search -> retrieved chunks -> LLM -> answer."""
 
 from . import generator, retriever
 

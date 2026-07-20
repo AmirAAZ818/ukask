@@ -42,12 +42,10 @@ def search_hybrid(query, k=5, candidate_k=20):
     Fusion. Returns the same shape as search() (text, metadata, distance),
     a drop-in replacement anywhere search() is used, including evaluation.
 
-    'distance' here is the REAL dense cosine distance for any chunk dense
-    search actually found, that keeps the relevance gate's threshold check
-    meaningful. For a chunk BM25 found that dense search didn't surface at
-    all, there's no real cosine distance to report, so it gets the worst
-    distance seen in the dense candidate pool, a conservative stand-in
-    rather than a falsely confident one."""
+    'distance' is the real dense cosine distance when dense search found the
+    chunk, keeping the relevance gate meaningful. For a BM25-only chunk, there
+    is no real distance, so it gets the worst distance in the dense pool as a
+    conservative stand-in."""
     from . import bm25_index
 
     client = store.get_client()

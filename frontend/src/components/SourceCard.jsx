@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { toPersianDigits, toPercent } from "../format";
 
-// One retrieved chunk. Collapsed it shows where the answer came from, expanded
-// it shows the regulation text verbatim so the student can check it themselves.
-// The document title leads (it's what a student recognizes the regulation by);
-// article number and page ride together underneath as matching small meta.
+// One retrieved chunk: collapsed shows where the answer came from, expanded
+// shows the regulation text verbatim so the student can check it themselves.
 export default function SourceCard({ source, index }) {
   const [open, setOpen] = useState(false);
 

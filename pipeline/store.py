@@ -1,5 +1,5 @@
-"""Persists chunks and their embeddings in ChromaDB. I supply embeddings
-ourselves (via embed.py) rather than Chroma's built-in embedding_function."""
+"""Persists chunks and their embeddings in ChromaDB. Embeddings are supplied
+directly (via embed.py) rather than through Chroma's built-in embedding_function."""
 
 import chromadb
 

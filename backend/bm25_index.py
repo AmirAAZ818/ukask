@@ -1,11 +1,9 @@
 """BM25 (lexical/keyword) index built from the same chunk text already
 sitting in ChromaDB, no re-embedding, no new model. Used alongside dense
-search for hybrid retrieval, BM25 catches exact term matches that dense
-embeddings can dilute across a blurry semantic neighborhood, exactly the
-gap we found firsthand with حذف و اضافه early in this project.
+search for hybrid retrieval: BM25 catches exact term matches that dense
+embeddings can dilute across a blurry semantic neighborhood, e.g. حذف و اضافه.
 
-Whitespace tokenization, not hazm's word_tokenize, faster and good enough
-for this, same call we made for other Persian text-processing work.
+Whitespace tokenization, not hazm's word_tokenize, faster and good enough here.
 """
 
 from rank_bm25 import BM25Okapi

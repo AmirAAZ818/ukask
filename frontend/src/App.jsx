@@ -38,9 +38,8 @@ export default function App() {
     const question = text.trim();
     if (!question || pending) return;
 
-    // sending is gated, browsing and typing never are. Check first, before
-    // touching any other state, so a blocked question stays right where it
-    // was typed instead of getting swept into an optimistic message push.
+    // sending is gated, not typing; check before touching any other state
+    // so a blocked question stays in the draft instead of being pushed out
     if (!hasValidSession()) {
       clearToken();
       setAuthed(false);
@@ -62,9 +61,7 @@ export default function App() {
       ]);
     } catch (err) {
       if (err.status === 401) {
-        // stored token turned out to be dead, expired or otherwise, same
-        // message either way, and the icon has to actually flip back to
-        // locked or it keeps lying about the state
+        // stored token is dead; reset auth state so the icon flips back to locked
         clearToken();
         setAuthed(false);
         setAuthNotice(true);

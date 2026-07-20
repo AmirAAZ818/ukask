@@ -59,15 +59,12 @@ def judge_answer(question, ground_truth, generated_answer, model=JUDGE_MODEL, ma
 
 def evaluate_answers(questions, k=5, search_fn=None, save_path=None):
     """Runs the full pipeline (retrieval + generation) and judges each answer.
-    Also reports whether the labeled article number was actually retrieved,
-    so you can see directly how often a 'missed' article still gave a
-    correct answer, and how often a correct article still gave a bad one.
-    search_fn: same as evaluate_retrieval, defaults to dense, pass
-    backend.retriever.search_hybrid to get hybrid's RAG-level accuracy.
-    save_path: if given, results are saved after EVERY question, not just
-    at the end, so a mid-run failure (API quota exhaustion, network drop,
-    anything) doesn't lose rows that already cost real API calls to produce.
-    On failure, whatever succeeded so far is returned rather than raised."""
+    Also reports whether the labeled article number was actually retrieved, so
+    a 'missed' article that still got a correct answer (or vice versa) is visible.
+
+    search_fn: same as evaluate_retrieval, defaults to dense.
+    save_path: if given, saves after every question (not just at the end) so a
+    mid-run failure doesn't lose rows that already cost real API calls."""
     from backend import rag
 
     from . import results as eval_results

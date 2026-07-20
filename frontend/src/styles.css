@@ -256,61 +256,6 @@ a:hover {
   border-color: var(--accent);
 }
 
-.empty__mark {
-  margin-bottom: 14px;
-  opacity: 0.92;
-}
-
-/* ---------- how it works ---------- */
-
-.empty__steps {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 560px;
-  margin: 28px 0 32px;
-  padding: 18px 20px;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-}
-
-.empty__step {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  text-align: start;
-  max-width: 160px;
-}
-
-.empty__step-index {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  background: var(--accent-mist);
-  color: var(--accent-deep);
-  display: grid;
-  place-items: center;
-  font-size: 12px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
-
-.empty__step-title {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 2px;
-}
-
-.empty__step-body {
-  font-size: 12px;
-  font-weight: 300;
-  color: var(--ink-soft);
-  line-height: 1.7;
-}
-
 /* ---------- grouped suggestions ---------- */
 
 .empty__groups {
@@ -861,12 +806,6 @@ a:hover {
 
   .auth-notice {
     margin-inline: 15px;
-  }
-
-  .empty__steps {
-    padding: 15px 16px;
-    gap: 16px;
-    margin: 22px 0 26px;
   }
 
   .empty__groups {
