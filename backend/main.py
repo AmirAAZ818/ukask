@@ -11,7 +11,7 @@ import logging
 import time
 from contextlib import asynccontextmanager
 
-import httpx
+import openai
 from chromadb.errors import NotFoundError
 from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,16 +21,18 @@ from pipeline import config, embed, store
 
 from . import auth
 from . import rag
+from . import retriever
 from .schemas import AskRequest, AskResponse, HealthResponse
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("ukask")
 
-# vite's default dev server origin, add the GitHub Pages URL here too
+# vite's default dev server origin, plus the real GitHub Pages origin
 # once that bonus deployment exists
 ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "https://AmirAAZ818.github.io",  # replace with your real GitHub Pages origin
 ]
 
 # updated once at startup, read by /api/health on every request after that
@@ -40,7 +42,7 @@ _readiness = {"index_ready": False, "embedding_model_ready": False}
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("starting up, checking vector index and warming the embedding model")
-    
+
     auth.check_auth_config()
 
     client = store.get_client()
@@ -90,11 +92,11 @@ async def index_missing_handler(request: Request, exc: NotFoundError):
     )
 
 
-@app.exception_handler(httpx.HTTPError)
-async def generation_service_error_handler(request: Request, exc: httpx.HTTPError):
-    # covers HfHubHTTPError (auth, rate limit, bad request) and
-    # InferenceTimeoutError, both are httpx.HTTPError subclasses
-    logger.error("huggingface inference call failed: %s", exc)
+@app.exception_handler(openai.OpenAIError)
+async def generation_service_error_handler(request: Request, exc: openai.OpenAIError):
+    # covers auth errors, rate limits, quota exhaustion, timeouts, and
+    # connection failures raised by the openai SDK talking to GapGPT
+    logger.error("generation call failed: %s", exc)
     return JSONResponse(
         status_code=502,
         content={"detail": "The generation service is unavailable right now, please try again shortly."},
@@ -127,7 +129,7 @@ def ask(payload: AskRequest, _session: None = Depends(auth.require_session)):
     # routes in a worker thread pool so one slow answer doesn't stall
     # every other request hitting the server at the same time
     started = time.perf_counter()
-    result = rag.answer_question(payload.question, k=payload.k)
+    result = rag.answer_question(payload.question, k=payload.k, search_fn=retriever.search_hybrid)
     elapsed = time.perf_counter() - started
     logger.info(
         "answered question in %.2fs, k=%d, %d sources",
