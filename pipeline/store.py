@@ -1,5 +1,5 @@
-"""Persists chunks and their embeddings in ChromaDB. I supply embeddings
-ourselves (via embed.py) rather than Chroma's built-in embedding_function."""
+"""Persists chunks and their embeddings in ChromaDB. Embeddings are supplied
+directly (via embed.py) rather than through Chroma's built-in embedding_function."""
 
 import chromadb
 
@@ -16,7 +16,14 @@ def reset_collection(client):
         client.delete_collection(config.COLLECTION_NAME)
     except Exception:
         pass  # collection didn't exist yet, nothing to drop
-    return client.create_collection(config.COLLECTION_NAME, embedding_function=None)
+    
+    return client.create_collection(
+        config.COLLECTION_NAME,
+        embedding_function=None,
+        # our embeddings are normalized (embed.py uses normalize_embeddings=True),
+        # chroma defaults to L2 otherwise, which isn't the metric bge-m3 was built for
+        configuration={"hnsw": {"space": "cosine"}},
+    )
 
 
 def add_chunks(collection, chunks, embeddings, source_filename):

@@ -13,13 +13,16 @@ PDF_DIR = ROOT_DIR / "data" / "pdfs"
 CHROMA_DIR = ROOT_DIR / "data" / "chroma"
 COLLECTION_NAME = "ukask_regulations"
 
-# --- huggingface ---
+# --- API Providers ---
 HF_TOKEN = os.environ.get("HF_TOKEN")
+GAPGPT_API_KEY = os.environ.get("GAPGPT_API_KEY")
 
 # --- chunking ---
 MIN_CHUNK_TOKENS = 300
 MAX_CHUNK_TOKENS = 500
 CHUNK_OVERLAP_TOKENS = 50  # avoids losing context at chunk edges
+
+INCLUDE_TABLE_CHUNKS = False
 
 # --- embedding ---
 EMBEDDING_MODEL = "BAAI/bge-m3"
@@ -36,6 +39,12 @@ FORCE_OCR_FILES = {
     "دستورالعمل بررسی موارد غیبت پزشکی.pdf",
 }
 
+# files with the ل+ا (lam-alef) drawing-order bug in their font, see
+# pipeline/ligature_fix.py for what this actually does and why it's opt-in
+LIGATURE_FIX_FILES = {
+    "مجموعه مقررات آموزشی 1402.pdf",
+    "راهنمای شرکت در امتحانات پایان ترم.pdf"
+}
 
 # --- per-document metadata ---
 DOCUMENT_MANIFEST = {

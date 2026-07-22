@@ -1,0 +1,14 @@
+// The mark merges the two things this product does: hold a document, and
+// search inside it. A magnifying glass overlaps the corner of a paged sheet.
+export default function Logo({ size = 30 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" aria-hidden="true">
+      <rect x="5" y="3" width="16" height="21" rx="3" fill="var(--accent-deep)" />
+      <rect x="9" y="9" width="8" height="1.6" rx="0.8" fill="var(--paper)" />
+      <rect x="9" y="13" width="8" height="1.6" rx="0.8" fill="var(--paper)" />
+      <rect x="9" y="17" width="5" height="1.6" rx="0.8" fill="var(--paper)" />
+      <circle cx="21.5" cy="21.5" r="5" fill="var(--surface)" stroke="var(--accent)" strokeWidth="2.2" />
+      <line x1="25" y1="25" x2="28.5" y2="28.5" stroke="var(--accent)" strokeWidth="2.4" strokeLinecap="round" />
+    </svg>
+  );
+}

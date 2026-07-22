@@ -4,4 +4,7 @@ __pycache__/
 data/chroma/
 .ipynb_checkpoints/
 
+node_modules/
+dist/
+
 .vscode

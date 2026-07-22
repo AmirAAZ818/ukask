@@ -12,7 +12,7 @@ from transformers import AutoTokenizer
 from . import config
 
 _tokenizer = None
-_ARTICLE_RE = re.compile(r"ماده\s+(\d+)\s*[.;,:]+")
+_ARTICLE_RE = re.compile(r"م\s*ا\s*د\s*ه\s+(\d+)\s*[.;,:)]+")
 
 
 def _get_tokenizer():

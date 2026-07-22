@@ -1,4 +1,4 @@
-"""One-time (re-run-whenever-the-PDFs-change) ingestion script.
+"""One-time (well, re-run-whenever-the-PDFs-change) ingestion script.
 
     python -m pipeline.build_index
 
@@ -7,7 +7,7 @@ purpose, so tweaking chunking or normalization never leaves stale chunks
 behind from a previous version.
 """
 
-from . import chunk, config, embed, extract, normalize, store
+from . import boilerplate, chunk, config, embed, extract, ligature_fix, normalize, store
 
 
 def _table_chunks(raw_pages, doc_meta):
@@ -28,7 +28,22 @@ def _table_chunks(raw_pages, doc_meta):
 def process_pdf(pdf_path):
     doc_meta = config.DOCUMENT_MANIFEST.get(pdf_path.name, {})
     raw_pages = extract.extract_pdf(pdf_path)
-    pages = [{"page": p["page"], "text": normalize.clean_text(p["text"])} for p in raw_pages]
+
+    # boilerplate detection needs line structure, so it runs before
+    # normalize.clean_text (which joins single newlines into spaces)
+    boilerplate_lines = boilerplate.find_boilerplate_lines([p["text"] for p in raw_pages])
+    if boilerplate_lines:
+        print(f"    stripping {len(boilerplate_lines)} repeated header/footer line(s)")
+
+    apply_ligature_fix = pdf_path.name in config.LIGATURE_FIX_FILES
+
+    pages = []
+    for p in raw_pages:
+        text = boilerplate.strip_boilerplate(p["text"], boilerplate_lines)
+        text = normalize.clean_text(text)
+        if apply_ligature_fix:
+            text = ligature_fix.fix_text(text)
+        pages.append({"page": p["page"], "text": text})
 
     ocr_pages = [p["page"] for p in raw_pages if p["was_ocr"]]
     if ocr_pages:
@@ -37,10 +52,13 @@ def process_pdf(pdf_path):
     table_chunks = _table_chunks(raw_pages, doc_meta)
     if table_chunks:
         table_pages = sorted({c["page"] for c in table_chunks})
-        print(f"    {len(table_chunks)} table(s) found on page(s) {table_pages}")
+        status = "" if config.INCLUDE_TABLE_CHUNKS else " (excluded, INCLUDE_TABLE_CHUNKS is off)"
+        print(f"    {len(table_chunks)} table(s) found on page(s) {table_pages}{status}")
 
     text_chunks = chunk.chunk_document(pages, doc_meta)
-    return text_chunks + table_chunks
+    if config.INCLUDE_TABLE_CHUNKS:
+        return text_chunks + table_chunks
+    return text_chunks
 
 
 def main():
