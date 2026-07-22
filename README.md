@@ -2,8 +2,6 @@
 
 A Persian-language RAG (Retrieval-Augmented Generation) system that answers student questions about University of Kerman's academic regulations, grounded strictly in the university's own PDF documents.
 
-**Live demo:** [ukask.example.com](https://ukask.example.com) *(placeholder — update once deployed)*
-
 ## How it works
 
 ```text
@@ -101,6 +99,12 @@ from evaluation import dataset, retrieval_metrics, rag_metrics
 
 See `notebooks/03_retrieval tuning.ipynb` and `notebooks/04_answer_correctness.ipynb` for worked examples — retrieval metrics are free to run repeatedly (no API calls), answer-correctness evaluation calls the LLM judge and costs real requests.
 
+Eval data lives under `data/eval/`:
+
+- `data/eval/evalset.json` — the full labeled question set.
+- `data/eval/split.json` — the dev/test split, generated once by `dataset.stratified_split` and reused after (so runs stay comparable).
+- `data/eval/results/` — saved metrics from each run (`results.save_results`), one JSON per run, used to compare configurations after the fact.
+
 ## Best practices followed here
 
 - **Secrets stay out of git.** All keys/tokens live in `.env` (gitignored), never hardcoded.
@@ -112,5 +116,4 @@ See `notebooks/03_retrieval tuning.ipynb` and `notebooks/04_answer_correctness.i
 
 ## Notes
 
-- `data/chroma/` (the built vector index) is gitignored, everyone builds it locally from `data/pdfs/`.
-- The access-code auth is intentionally lightweight (single shared code, in-memory rate limiting)
+- `data/pdfs/` (source documents) and `data/eval/` (eval set, split, and results) are tracked in the repo. Only `data/chroma/` (the built vector index) is gitignored.
