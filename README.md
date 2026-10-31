@@ -1,46 +1,107 @@
 # UkAsk
 
-A Persian-language RAG (Retrieval-Augmented Generation) system that answers student questions about University of Kerman's academic regulations, grounded strictly in the university's own PDF documents.
+A Persian question answering assistant for the academic regulations of Shahid Bahonar University of Kerman. Every answer is built from the university's own PDFs and comes with the article and page it was taken from.
+
+<p align="center">
+  <img src="docs/images/app/answer.png" alt="UkAsk answering a question with expandable source cards" width="820">
+</p>
+
+## Screenshots
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/images/app/home.png" alt="Start screen with suggested questions"></td>
+    <td width="50%"><img src="docs/images/app/refusal.png" alt="An out of scope question gets a refusal"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Start screen with suggested questions</sub></td>
+    <td align="center"><sub>Out of scope questions are refused instead of guessed</sub></td>
+  </tr>
+  <tr>
+    <td valign="top"><img src="docs/images/app/login.png" alt="Access code panel"></td>
+    <td valign="top" align="center"><img src="docs/images/app/mobile.png" alt="Mobile layout" width="55%"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Access code panel behind the lock icon</sub></td>
+    <td align="center"><sub>Mobile layout</sub></td>
+  </tr>
+</table>
 
 ## How it works
 
-```text
-PDFs (data/pdfs) → extract + OCR → normalize → chunk → embed → ChromaDB
-                                                                    │
-question ──────────────────────────────────────────────► hybrid search (dense + BM25)
-                                                                    │
-                                                         retrieved chunks → LLM → answer
+```mermaid
+flowchart LR
+  subgraph Offline
+    A[PDFs] --> B[Extract and OCR] --> C[Clean and normalize] --> D[Chunk] --> E[Embed with bge-m3] --> F[(ChromaDB)]
+  end
+  subgraph Online
+    Q[Question] --> R[Hybrid search] --> G{Relevance gate} --> H[Generate with Qwen] --> S[Answer and sources]
+  end
+  F -.-> R
 ```
 
-- **`pipeline/`** — offline ingestion: PDF text/table extraction, OCR fallback for scans, Persian text normalization, chunking, embedding (`BAAI/bge-m3`), and storage in ChromaDB.
-- **`backend/`** — FastAPI service exposing `/api/ask`. Hybrid retrieval (dense + BM25 via Reciprocal Rank Fusion), answer generation, access-code auth.
-- **`frontend/`** — React + Vite chat UI.
-- **`evaluation/`** — retrieval metrics (hit rate, MRR, MAP) and LLM-judged answer correctness.
-- **`notebooks/`** — exploratory notebooks mirroring the pipeline/backend stages, used during development and tuning.
+| Setting | Value |
+| --- | --- |
+| Chunking | 300 to 500 tokens, 50 token overlap |
+| Embeddings | `BAAI/bge-m3`, run locally |
+| Retrieval | Dense and BM25, top 20 each, merged with Reciprocal Rank Fusion, `k=5` |
+| Relevance gate | Top cosine similarity must reach 0.52, otherwise the model is never called |
+| Generator | `gapgpt-qwen-3.6` through GapGPT |
+| Judge for evaluation | `gpt-4o` |
 
-## Prerequisites
+## Results
 
-- Python 3.12 + [conda](https://docs.conda.io/) (or another env manager — `environment.yml` has the exact deps)
-- Node.js 18+
-- [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) with the Persian (`fas`) language pack installed
-- API keys: a [Hugging Face](https://huggingface.co/) token (`HF_TOKEN`, for downloading the embedding model) and a [GapGPT](https://gapgpt.app/) key (`GAPGPT_API_KEY`, used for both generation and eval)
+Evaluated on 100 labeled questions, split into 20 for tuning and 80 for testing. The split is stratified by question type and difficulty, and the test set was only touched after every setting was frozen.
 
-## Setup
+| Test set (80 questions) | Dense | Hybrid |
+| --- | :---: | :---: |
+| Correct answers | 66 (82%) | **70 (88%)** |
+| Partial answers | 6 (8%) | 7 (9%) |
+| Incorrect answers | 8 (10%) | **3 (4%)** |
+| Retrieval hit rate | 0.425 | **0.512** |
+| Mean reciprocal rank | 0.260 | **0.321** |
 
-### 1. Backend environment
+<p align="center">
+  <img src="docs/images/results/rag_accuracy_test.png" alt="End to end accuracy, dense versus hybrid" width="640">
+</p>
+
+<p align="center">
+  <img src="docs/images/results/heatmap_difficulty.png" alt="Judge verdict by difficulty, dense versus hybrid" width="860">
+</p>
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/images/results/retrieval_dense_vs_k.png" alt="Dense retrieval metrics against k"></td>
+    <td width="50%"><img src="docs/images/results/retrieval_hybrid_vs_k.png" alt="Hybrid retrieval metrics against k"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Dense retrieval on the dev set</sub></td>
+    <td align="center"><sub>Hybrid retrieval on the dev set</sub></td>
+  </tr>
+</table>
+
+### What stood out
+
+- Hybrid search cut clearly wrong answers from 8 to 3, even though the small dev set showed no gain at `k=5`.
+- Retrieval metrics and answer quality tell different stories. Hard questions hit the labeled article only 18% of the time, yet hybrid answered all 17 of them correctly because the same rule often appears in another document.
+- Reciprocal rank stays flat as `k` grows while the hit rate keeps climbing, so the right chunk is found but not pushed up. A re-ranker is the obvious next step.
+- Context sent to the generator roughly triples between `k=5` and `k=15`, so a larger `k` comes with a real cost.
+- Precision and MAP are treated as secondary, since one question can be answered by several passages and the labels only name one article.
+
+The full reasoning, including the PDF extraction problems (a broken font map, reversed lam-alef letters, repeated headers) and why table extraction ended up disabled, is in the [project report](docs/UkAsk-Report.pdf).
+
+## Quick start
+
+You need Python 3.12 with conda, Node.js 18 or newer, and [Tesseract](https://github.com/tesseract-ocr/tesseract) with the Persian (`fas`) language pack. You also need a [Hugging Face](https://huggingface.co/) token for the embedding model and a [GapGPT](https://gapgpt.app/) key for generation and evaluation.
 
 ```bash
 conda env create -f environment.yml
 conda activate ukask
+npm install
+npm --prefix frontend install
 ```
 
-### 2. Tesseract
-
-Install it, then point `TESSERACT_CMD` in [pipeline/config.py](pipeline/config.py) at your binary (or leave it `None` if `tesseract` is already on your `PATH`).
-
-### 3. Environment variables
-
-Create a `.env` file in the project root:
+Create a `.env` file in the project root.
 
 ```text
 HF_TOKEN=your_huggingface_token
@@ -49,47 +110,27 @@ ACCESS_CODE=pick_a_shared_access_code
 SESSION_SECRET=generate_a_long_random_string
 ```
 
-`.env` is gitignored — never commit it. Generate `SESSION_SECRET` with something like `python -c "import secrets; print(secrets.token_hex(32))"`.
+Point `TESSERACT_CMD` in [pipeline/config.py](pipeline/config.py) at your binary, or set it to `None` if `tesseract` is already on your `PATH`. Any new PDF goes into `data/pdfs/` and needs an entry in `DOCUMENT_MANIFEST` in the same file.
 
-### 4. Add your documents
-
-Drop PDFs into `data/pdfs/`, then add each filename to `DOCUMENT_MANIFEST` in `pipeline/config.py` with its title and publication date.
-
-### 5. Build the vector index
+Build the index, then start everything.
 
 ```bash
 python -m pipeline.build_index
-```
-
-Re-run this any time the source PDFs or chunking/normalization logic change — it rebuilds the ChromaDB collection from scratch.
-
-### 6. Frontend environment
-
-`frontend/.env` already points at `http://localhost:8000` for local dev — no changes needed unless the backend runs elsewhere.
-
-### 7. Install JS dependencies
-
-```bash
-npm install
-npm --prefix frontend install
-```
-
-## Running locally
-
-From the project root, with the conda env active:
-
-```bash
 npm run dev
 ```
 
-This starts the FastAPI backend (`:8000`) and the Vite dev server (`:5173`) together. Open `http://localhost:5173` and log in with your `ACCESS_CODE`.
+The index is rebuilt from scratch on every run, so no stale chunks survive a config change. The API listens on port 8000 and the UI on `http://localhost:5173`, where the lock icon takes your `ACCESS_CODE`. Source PDFs and evaluation data are committed, while the built index in `data/chroma/` is gitignored.
 
-To run them separately:
+## Project layout
 
-```bash
-uvicorn backend.main:app --reload --port 8000
-npm --prefix frontend run dev
-```
+| Folder | Contents |
+| --- | --- |
+| `pipeline/` | Offline ingestion with extraction, OCR fallback, normalization, chunking, embedding and storage |
+| `backend/` | FastAPI service with hybrid retrieval, generation and access code auth |
+| `frontend/` | React and Vite chat interface |
+| `evaluation/` | Retrieval metrics and the LLM judge |
+| `notebooks/` | Exploration and tuning, one notebook per stage |
+| `data/` | Source PDFs, the evaluation set and its saved results |
 
 ## Evaluation
 
@@ -97,23 +138,8 @@ npm --prefix frontend run dev
 from evaluation import dataset, retrieval_metrics, rag_metrics
 ```
 
-See `notebooks/03_retrieval tuning.ipynb` and `notebooks/04_answer_correctness.ipynb` for worked examples — retrieval metrics are free to run repeatedly (no API calls), answer-correctness evaluation calls the LLM judge and costs real requests.
+Retrieval metrics are free to rerun. Answer correctness calls the judge model and spends real API requests. Worked examples live in `notebooks/03_retrieval tuning.ipynb` and `notebooks/04_answer_correctness.ipynb`. The labeled questions are in `data/eval/evalset.json`, the fixed dev and test split in `data/eval/split.json`, and one JSON per run under `data/eval/results/`.
 
-Eval data lives under `data/eval/`:
+## License
 
-- `data/eval/evalset.json` — the full labeled question set.
-- `data/eval/split.json` — the dev/test split, generated once by `dataset.stratified_split` and reused after (so runs stay comparable).
-- `data/eval/results/` — saved metrics from each run (`results.save_results`), one JSON per run, used to compare configurations after the fact.
-
-## Best practices followed here
-
-- **Secrets stay out of git.** All keys/tokens live in `.env` (gitignored), never hardcoded.
-- **Config is centralized.** Tunables (chunk sizes, thresholds, model names) live in one place (`pipeline/config.py`) instead of scattered magic numbers.
-- **Ingestion is idempotent.** Rebuilding the index always starts from a clean collection, so no stale chunks survive a config change.
-- **Retrieval and generation are decoupled** (`retriever.py` vs `generator.py`), so either can be evaluated or swapped independently.
-- **Evaluation is separated from the app** and checkpoints results incrementally, so a failed run doesn't waste API calls already spent.
-- **Pin your dependencies** (see `environment.yml` / `package.json`) so the environment is reproducible across machines.
-
-## Notes
-
-- `data/pdfs/` (source documents) and `data/eval/` (eval set, split, and results) are tracked in the repo. Only `data/chroma/` (the built vector index) is gitignored.
+Released under the [MIT License](LICENSE). Built by Amirhossein Abolhassani as the final project of the Natural Language Processing course.

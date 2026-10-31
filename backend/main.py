@@ -124,10 +124,6 @@ def health():
 
 @app.post("/api/ask", response_model=AskResponse)
 def ask(payload: AskRequest, _session: None = Depends(auth.require_session)):
-    # plain def, not async def, on purpose, retriever.search and
-    # generator.generate_answer are blocking calls, FastAPI runs plain def
-    # routes in a worker thread pool so one slow answer doesn't stall
-    # every other request hitting the server at the same time
     started = time.perf_counter()
     result = rag.answer_question(payload.question, k=payload.k, search_fn=retriever.search_hybrid)
     elapsed = time.perf_counter() - started
